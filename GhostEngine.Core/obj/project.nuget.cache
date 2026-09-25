@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "ti4Fz0WsEAc=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Artem\\source\\repos\\GhostEngine\\GhostEngine\\GhostEngine.Core\\GhostEngine.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Artem\\.nuget\\packages\\monogame.framework.native\\3.8.5.1\\monogame.framework.native.3.8.5.1.nupkg.sha512"
+  ],
+  "logs": []
+}
