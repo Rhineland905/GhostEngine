@@ -61,7 +61,7 @@ namespace GhostEngine.DesktopGL.Editor
         }
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Gray);
             _desktop?.Render();
 
             base.Draw(gameTime);
