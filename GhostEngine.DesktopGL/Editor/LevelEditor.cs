@@ -1,16 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Myra;
+using Myra.Graphics2D.UI;
+using System.Xml.Linq;
 
 namespace GhostEngine.DesktopGL.Editor
 {
     internal class LevelEditor : Game
     {
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        private Desktop _desktop;
 
-        private int monitorH, monitorW;
-        private int windowW, windowH;
+        private int windowW, windowH, monitorH, monitorW;
         private bool isFullscreen = false;
 
 
@@ -49,6 +51,20 @@ namespace GhostEngine.DesktopGL.Editor
 
             }
         }
-       
+
+        protected override void Initialize()
+        {
+            base.Initialize();
+            MyraEnvironment.Game = this;        
+            _desktop = new Desktop();
+            _desktop.Root = UIManager.CreateMainUI();
+        }
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+            _desktop?.Render();
+
+            base.Draw(gameTime);
+        }
     }
 }
