@@ -11,6 +11,8 @@ namespace GhostEngine.DesktopGL.Editor
     {
         private GraphicsDeviceManager _graphics;
         private Desktop _desktop;
+        private Button _button;
+        private Panel _mainPanel;
 
         private int windowW, windowH, monitorH, monitorW;
         private bool isFullscreen = false;
@@ -57,14 +59,16 @@ namespace GhostEngine.DesktopGL.Editor
             base.Initialize();
             MyraEnvironment.Game = this;        
             _desktop = new Desktop();
+            ButtonsEvents.DesktopInstance = _desktop;
             _desktop.Root = UIManager.CreateMainUI();
         }
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Gray);
             _desktop?.Render();
-
+            
             base.Draw(gameTime);
         }
+
     }
 }

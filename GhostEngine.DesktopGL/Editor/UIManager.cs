@@ -19,12 +19,14 @@ namespace GhostEngine.DesktopGL.Editor
         public static Panel CreateMainUI()
         {
             var panel = new Panel();
+            var Line = new Myra.Graphics2D.UI.HorizontalSeparator();
+            Line.Height = 30;
+            Line.VerticalAlignment = Myra.Graphics2D.UI.VerticalAlignment.Top;
 
-            
-
-            
             var fileMenu = CreateFileButton();
+            panel.Widgets.Add(Line);
             panel.Widgets.Add(fileMenu);
+            
 
             return panel;
         }

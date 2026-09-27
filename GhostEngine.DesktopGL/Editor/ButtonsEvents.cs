@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GhostEngine.DesktopGL.Editor.Settings;
+using Myra.Graphics2D.UI;
+using System;
 
 namespace GhostEngine.DesktopGL.Editor
 {
     internal class ButtonsEvents
     {
+        public static Desktop DesktopInstance { get; set; }
         public static void HandleMenuEvent(string Type)
         {
             switch (Type)
@@ -15,6 +14,7 @@ namespace GhostEngine.DesktopGL.Editor
                 case "New":
                 case "Open":
                 case "Save":
+                case "Settings":
                 case "Exit":
                     FileMenu(Type);
                     break;
@@ -37,8 +37,12 @@ namespace GhostEngine.DesktopGL.Editor
                 case "Save":
                     Console.WriteLine("✓ Файл сохранен");
                     break;
+                case "Settings":
+                    var myWindow = SettingsCore.CreateSettingsWindow();
+                    myWindow.Show(DesktopInstance);
+                    break;
                 case "Exit":
-                    Console.WriteLine("✓ Выход из приложения");
+
                     Environment.Exit(0);
                     break;
             }
