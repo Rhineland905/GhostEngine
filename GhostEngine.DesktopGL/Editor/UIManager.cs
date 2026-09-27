@@ -20,15 +20,9 @@ namespace GhostEngine.DesktopGL.Editor
         {
             var panel = new Panel();
 
-            var line = new Panel
-            {
-                Height = 2,
-                Background = new SolidBrush(Color.Gray)
-            };
+            
 
-            panel.Widgets.Add(line);
-
-            panel.Widgets.Add(line);
+            
             var fileMenu = CreateFileButton();
             panel.Widgets.Add(fileMenu);
 
