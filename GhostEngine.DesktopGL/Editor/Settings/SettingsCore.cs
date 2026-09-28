@@ -3,6 +3,7 @@ using Myra.Graphics2D;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using System;
+using System.Diagnostics;
 
 namespace GhostEngine.DesktopGL.Editor.Settings
 {
@@ -61,7 +62,7 @@ namespace GhostEngine.DesktopGL.Editor.Settings
                 Width = 50,
                 
             };
-            whiteRadio.Click += (s, e) => ButtonsEvents.ApplyWhiteTheme();
+            whiteRadio.Click += (s, e) => ButtonsEventsSettings.ApplyWhiteTheme();
             radioPanel.Widgets.Add(whiteRadio);
             var label = new Label { Text = "|",Left =15};
             radioPanel.Widgets.Add(label);
@@ -72,14 +73,13 @@ namespace GhostEngine.DesktopGL.Editor.Settings
               
                 Left = 20,
             };
-            blackRadio.Click += (s, e) => ButtonsEvents.ApplyBlackTheme();
+            blackRadio.Click += (s, e) => ButtonsEventsSettings.ApplyBlackTheme();
             radioPanel.Widgets.Add(blackRadio);
 
             themeRow.Widgets.Add(radioPanel);
             mainContent.Widgets.Add(themeRow);
 
-            var spacer = new Panel { Height = 100 };
-            mainContent.Widgets.Add(spacer);
+            
 
             window.Content = mainContent;
             return window;

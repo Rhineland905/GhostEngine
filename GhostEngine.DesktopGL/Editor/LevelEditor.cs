@@ -1,9 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GhostEngine.DesktopGL.Editor.Settings;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Myra;
 using Myra.Graphics2D.UI;
+using System;
+using System.Diagnostics;
 using System.Xml.Linq;
+
 
 namespace GhostEngine.DesktopGL.Editor
 {
@@ -13,6 +17,7 @@ namespace GhostEngine.DesktopGL.Editor
         private Desktop _desktop;
         private Button _button;
         private Panel _mainPanel;
+        private bool isDark = false;
 
         private int windowW, windowH, monitorH, monitorW;
         private bool isFullscreen = false;
@@ -57,10 +62,16 @@ namespace GhostEngine.DesktopGL.Editor
         protected override void Initialize()
         {
             base.Initialize();
-            MyraEnvironment.Game = this;        
+            MyraEnvironment.Game = this;
             _desktop = new Desktop();
+
+            _mainPanel = UIManager.CreateMainUI() as Panel;
             ButtonsEvents.DesktopInstance = _desktop;
-            _desktop.Root = UIManager.CreateMainUI();
+            ButtonsEventsSettings.DesktopInstance = _desktop;
+            ButtonsEventsSettings.UpdateGlobalStylesheet(isDark);
+            _desktop.Root = _mainPanel;
+
+            
         }
         protected override void Draw(GameTime gameTime)
         {
