@@ -7,6 +7,8 @@ namespace GhostEngine.DesktopGL.Editor
     internal class ButtonsEvents
     {
         public static Desktop DesktopInstance { get; set; }
+        public static Window SettingsWindowInstance { get; set; }
+
         public static void HandleMenuEvent(string Type)
         {
             switch (Type)
@@ -38,8 +40,30 @@ namespace GhostEngine.DesktopGL.Editor
                     Console.WriteLine("✓ Файл сохранен");
                     break;
                 case "Settings":
+                    if (SettingsWindowInstance != null)
+                    {
+                        break;
+                    }
                     var myWindow = SettingsCore.CreateSettingsWindow();
-                    myWindow.Show(DesktopInstance);
+                    if (myWindow != null)
+                    {
+                        myWindow.Closed += (s, e) =>
+                        {
+                            SettingsWindowInstance = null;
+                            if (DesktopInstance.Root is Panel rootPanel)
+                            {
+                                rootPanel.Widgets.Remove(myWindow);
+
+                            }
+                        };
+                        if (DesktopInstance.Root is Panel rootPanel)
+                        {
+                            rootPanel.Widgets.Add(myWindow);
+                        }
+
+                        SettingsWindowInstance = myWindow;
+
+                    }
                     break;
                 case "Exit":
 

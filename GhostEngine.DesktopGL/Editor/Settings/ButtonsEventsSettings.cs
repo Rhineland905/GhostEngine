@@ -1,18 +1,21 @@
-﻿using Myra;
+﻿using GhostEngine.DesktopGL.Editor.Config;
+using Microsoft.Xna.Framework;
+using Myra;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.TextureAtlases;
 using Myra.Graphics2D.UI;
 using System;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using static GhostEngine.DesktopGL.Editor.Config.SaveLoadConfig;
 
 namespace GhostEngine.DesktopGL.Editor.Settings
 {
+ 
     internal class ButtonsEventsSettings
     {
         public static Desktop DesktopInstance { get; set; }
@@ -21,15 +24,16 @@ namespace GhostEngine.DesktopGL.Editor.Settings
         public static void ApplyWhiteTheme()
         {
             DarkMode = false;
-            UpdateGlobalStylesheet(false);
-            RefreshUI();
+            UpdateGlobalStylesheet(DarkMode);
+            
+           
         }
 
         public static void ApplyBlackTheme()
         {
             DarkMode = true;
-            UpdateGlobalStylesheet(true);
-            RefreshUI();
+            UpdateGlobalStylesheet(DarkMode);
+            
         }
 
         public static void UpdateGlobalStylesheet(bool isDark)
@@ -72,13 +76,16 @@ namespace GhostEngine.DesktopGL.Editor.Settings
             sheet.HorizontalSeparatorStyle.Image = lineRegion;
             sheet.VerticalSeparatorStyle.Image = lineRegion;
 
+            //Winodw
             sheet.WindowStyle.Background = windBrush;
             sheet.WindowStyle.TitleStyle.TextColor = textColor;
+            
+
             // Background
             sheet.PanelStyle.Background = bgBrush;
         }
 
-        private static void RefreshUI()
+        public static void RefreshUI()
         {
             if (DesktopInstance != null)
             {
