@@ -12,6 +12,7 @@ C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.Core\obj\Debug\n
 C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.Core\obj\Debug\net9.0\GhostEngine.Core.AssemblyInfoInputs.cache
 C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.Core\obj\Debug\net9.0\GhostEngine.Core.AssemblyInfo.cs
 C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.Core\obj\Debug\net9.0\GhostEngine.Core.csproj.CoreCompileInputs.cache
+C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.Core\obj\Debug\net9.0\GhostEngine.Core.sourcelink.json
 C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.Core\obj\Debug\net9.0\es-ES\GhostEngine.Core.resources.dll
 C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.Core\obj\Debug\net9.0\fr-FR\GhostEngine.Core.resources.dll
 C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.Core\obj\Debug\net9.0\GhostEngine.Core.dll

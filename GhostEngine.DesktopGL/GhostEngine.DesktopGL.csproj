@@ -5,7 +5,7 @@
     <PublishReadyToRun>false</PublishReadyToRun>
     <TieredCompilation>false</TieredCompilation>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>../GhostEngine.Core/Content/Icon.ico</ApplicationIcon>
+    <ApplicationIcon>Content/Icon.ico</ApplicationIcon>
     <AssemblyName>GhostEngine</AssemblyName>
     <AssemblyTitle>GhostEngine</AssemblyTitle>
   </PropertyGroup>
@@ -13,5 +13,10 @@
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.*" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.*" />
     <PackageReference Include="Myra" Version="1.6.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content/Icon.bmp">
+      <LogicalName>Icon.bmp</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

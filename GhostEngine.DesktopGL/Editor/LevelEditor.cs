@@ -44,6 +44,8 @@ namespace GhostEngine.DesktopGL.Editor
          
             Window.AllowUserResizing = true;
             Window.ClientSizeChanged += Window_ClientSizeChanged;
+
+            Window.AllowAltF4 = true;
         }
 
         private void Window_ClientSizeChanged(object sender, System.EventArgs e)
@@ -70,12 +72,12 @@ namespace GhostEngine.DesktopGL.Editor
             
             SaveLoadConfig.Check();
 
-            
+            //LoadData
             var currentSettings = SaveLoadConfig.LoadData();
             ButtonsEventsSettings.DarkMode = currentSettings.IsDarkMode;
             ButtonsEventsSettings.UpdateGlobalStylesheet(currentSettings.IsDarkMode);
 
-           
+           //CreateGUI
             _mainPanel = UIManager.CreateMainUI() as Panel;
             ButtonsEvents.DesktopInstance = _desktop;
             ButtonsEventsSettings.DesktopInstance = _desktop;

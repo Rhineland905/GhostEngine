@@ -19,6 +19,7 @@ namespace GhostEngine.DesktopGL.Editor.Config
 
         public static void SaveData(EngineData settings)
         {
+
             string directoryPath = Path.GetDirectoryName(DataFilePath);
             
             if (!string.IsNullOrEmpty(directoryPath) && !Directory.Exists(directoryPath))
@@ -35,12 +36,21 @@ namespace GhostEngine.DesktopGL.Editor.Config
 
         public static EngineData LoadData()
         {
-            if (!File.Exists(DataFilePath))
+            try
             {
+                if (!File.Exists(DataFilePath))
+                {
+                    return new EngineData();
+                }
+                string jsonString = File.ReadAllText(DataFilePath);
+                return JsonSerializer.Deserialize<EngineData>(jsonString) ?? new EngineData();
+            }
+            catch 
+            {
+                DataError();
                 return new EngineData();
             }
-            string jsonString = File.ReadAllText(DataFilePath);
-            return JsonSerializer.Deserialize<EngineData>(jsonString) ?? new EngineData();
+            
         }
 
         public static void Check()
@@ -53,6 +63,11 @@ namespace GhostEngine.DesktopGL.Editor.Config
                 };
                 SaveData(defaultData); 
             }
+        }
+        private static void DataError()
+        {
+            File.Delete(DataFilePath);
+            Check();
         }
     }
 }

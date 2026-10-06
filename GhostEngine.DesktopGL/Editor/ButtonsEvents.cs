@@ -1,4 +1,5 @@
-﻿using GhostEngine.DesktopGL.Editor.Settings;
+﻿using GhostEngine.DesktopGL.Editor.Config;
+using GhostEngine.DesktopGL.Editor.Settings;
 using Myra.Graphics2D.UI;
 using System;
 
@@ -49,6 +50,7 @@ namespace GhostEngine.DesktopGL.Editor
                     {
                         myWindow.Closed += (s, e) =>
                         {
+                            ButtonsEventsSettings.DarkMode = SaveLoadConfig.LoadData().IsDarkMode;
                             SettingsWindowInstance = null;
                             if (DesktopInstance.Root is Panel rootPanel)
                             {

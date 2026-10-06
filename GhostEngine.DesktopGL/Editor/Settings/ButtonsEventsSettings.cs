@@ -20,20 +20,15 @@ namespace GhostEngine.DesktopGL.Editor.Settings
     {
         public static Desktop DesktopInstance { get; set; }
         public static bool DarkMode { get; set; }
-
+       
         public static void ApplyWhiteTheme()
         {
             DarkMode = false;
-            UpdateGlobalStylesheet(DarkMode);
-            
-           
         }
 
         public static void ApplyBlackTheme()
         {
             DarkMode = true;
-            UpdateGlobalStylesheet(DarkMode);
-            
         }
 
         public static void UpdateGlobalStylesheet(bool isDark)
@@ -91,6 +86,14 @@ namespace GhostEngine.DesktopGL.Editor.Settings
             {
                 DesktopInstance.Root = UIManager.CreateMainUI() as Panel;
             }
+        }
+        public static void ApplyButton()
+        {
+            ButtonsEventsSettings.UpdateGlobalStylesheet(ButtonsEventsSettings.DarkMode);
+            ButtonsEventsSettings.RefreshUI();
+
+            ButtonsEvents.SettingsWindowInstance = null;
+            ButtonsEvents.HandleMenuEvent("Settings");
         }
     }
 }

@@ -5,19 +5,19 @@ using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using System;
 using System.Diagnostics;
+using System.Threading;
 using static GhostEngine.DesktopGL.Editor.Config.SaveLoadConfig;
 
 namespace GhostEngine.DesktopGL.Editor.Settings
 {
     internal class SettingsCore
     {
-        public static Desktop DesktopInstance { get; set; }
         public static Window SettingsWindowInstance { get; set; }
-        public static bool DarkMode { get; set; }
-
-
+    
         public static Window CreateSettingsWindow()
         {
+            
+
             var window = new Window
             {
                 Title = "Settings",
@@ -59,11 +59,18 @@ namespace GhostEngine.DesktopGL.Editor.Settings
                 VerticalAlignment = VerticalAlignment.Center
             };
             radioPanel.Widgets.Add(themeLabel);
+            bool DarkMode = ButtonsEventsSettings.DarkMode;
+            bool WhitePressed = false, DarkPressed = false;
 
+            if (!DarkMode)
+            {
+                WhitePressed = true;
+            } 
             var whiteRadio = new RadioButton
             {
                 Content = new Label { Text = "Light" },
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center,
+                IsPressed = WhitePressed
             };
             whiteRadio.Click += (s, e) => ButtonsEventsSettings.ApplyWhiteTheme();
             radioPanel.Widgets.Add(whiteRadio);
@@ -75,10 +82,15 @@ namespace GhostEngine.DesktopGL.Editor.Settings
             };
             radioPanel.Widgets.Add(dividerLabel);
 
+            if (DarkMode)
+            {
+                DarkPressed = true;
+            }
             var blackRadio = new RadioButton
             {
                 Content = new Label { Text = "Dark" },
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center,
+                IsPressed = DarkPressed
             };
             blackRadio.Click += (s, e) => ButtonsEventsSettings.ApplyBlackTheme();
             radioPanel.Widgets.Add(blackRadio);
@@ -94,25 +106,17 @@ namespace GhostEngine.DesktopGL.Editor.Settings
                 Margin = new Thickness(0, 0, 15, 15),
                 Padding = new Thickness(15, 8),
                 
+                
 
             };
 
             applyButton.Click += (s, e) =>
             {
+                SaveLoadConfig.SaveData(new EngineData { IsDarkMode = ButtonsEventsSettings.DarkMode });
                 window.Close();
                 SettingsWindowInstance = null;
-                ButtonsEventsSettings.RefreshUI();
-                var newWindow = CreateSettingsWindow();
+                ButtonsEventsSettings.ApplyButton();
 
-                if (newWindow != null && DesktopInstance != null && DesktopInstance.Root is Panel desktopRootPanel)
-                {
-                    desktopRootPanel.Widgets.Add(newWindow);
-                }
-                EngineData data = new EngineData
-                {
-                    IsDarkMode = ButtonsEventsSettings.DarkMode,
-                };
-                SaveLoadConfig.SaveData(data);
             };
 
             rootPanel.Widgets.Add(mainContent);
