@@ -29,7 +29,9 @@ namespace GhostEngine.DesktopGL.Editor.Settings
         public static Color AccentHoverColor { get; private set; }
         public static Color DimTextColor { get; private set; }
         public static Color BorderColor { get; private set; }
-       
+        public static Color InputBackgroundColor { get; private set; }
+        public static Color SurfaceColor { get; private set; }
+
         public static void ApplyWhiteTheme()
         {
             DarkMode = false;
@@ -55,11 +57,14 @@ namespace GhostEngine.DesktopGL.Editor.Settings
             var selectionColor = isDark ? new Color(9, 71, 113)    : new Color(204, 228, 247);
             var textColor      = isDark ? new Color(230, 230, 230) : new Color(30, 30, 30);
             var dimTextColor   = isDark ? new Color(150, 150, 150) : new Color(110, 110, 110);
+            var inputBackgroundColor = isDark ? new Color(30, 30, 30) : new Color(0,0,0);
 
             AccentColor = accentColor;
             AccentHoverColor = isDark ? new Color(28, 151, 234) : new Color(16, 110, 190);
             DimTextColor = dimTextColor;
             BorderColor = borderColor;
+            InputBackgroundColor = inputBackgroundColor;
+            SurfaceColor = surfaceColor;
 
             // Brush
             var bgBrush = new SolidBrush(bgColor);
