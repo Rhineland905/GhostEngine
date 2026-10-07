@@ -1,5 +1,6 @@
 ﻿using GhostEngine.DesktopGL.Editor.Config;
 using GhostEngine.DesktopGL.Editor.Settings;
+using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
 using System;
 
@@ -29,8 +30,10 @@ namespace GhostEngine.DesktopGL.Editor
         }
         private static void FileMenu(string action)
         {
+            
             switch (action)
             {
+                
                 case "New":
                     Console.WriteLine("✓ Создан новый файл");
                     break;
@@ -41,6 +44,7 @@ namespace GhostEngine.DesktopGL.Editor
                     Console.WriteLine("✓ Файл сохранен");
                     break;
                 case "Settings":
+
                     if (SettingsWindowInstance != null)
                     {
                         break;
@@ -68,7 +72,6 @@ namespace GhostEngine.DesktopGL.Editor
                     }
                     break;
                 case "Exit":
-
                     Environment.Exit(0);
                     break;
             }

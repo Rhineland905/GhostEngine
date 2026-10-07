@@ -14,6 +14,7 @@ namespace GhostEngine.DesktopGL.Editor
 {
     internal class LevelEditor : Game
     {
+       
         private GraphicsDeviceManager _graphics;
         private Desktop _desktop;
         private Button _button;
@@ -92,6 +93,8 @@ namespace GhostEngine.DesktopGL.Editor
             _desktop?.Render();
 
             base.Draw(gameTime);
+        }
+        protected virtual void Update(GameTime Time) { 
         }
 
     }

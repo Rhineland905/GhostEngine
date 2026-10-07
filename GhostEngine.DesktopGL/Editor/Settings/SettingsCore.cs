@@ -1,11 +1,8 @@
-﻿using GhostEngine.DesktopGL.Editor.Config;
+using GhostEngine.DesktopGL.Editor.Config;
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
-using System;
-using System.Diagnostics;
-using System.Threading;
 using static GhostEngine.DesktopGL.Editor.Config.SaveLoadConfig;
 
 namespace GhostEngine.DesktopGL.Editor.Settings
@@ -13,101 +10,111 @@ namespace GhostEngine.DesktopGL.Editor.Settings
     internal class SettingsCore
     {
         public static Window SettingsWindowInstance { get; set; }
-    
+
         public static Window CreateSettingsWindow()
         {
-            
-
             var window = new Window
             {
                 Title = "Settings",
-                Width = 500,
-                Height = 400
+                Width = 440,
+                Height = 220 // explicit so Myra can center the window
             };
 
-            var rootPanel = new Panel { Background = null };
+            var root = new VerticalStackPanel { Background = null };
 
-            var mainContent = new VerticalStackPanel
+            // Body
+            var body = new VerticalStackPanel
             {
-                Spacing = 20,
-                Padding = new Thickness(20),
+                Spacing = 10,
+                Padding = new Thickness(20, 16, 20, 20),
                 Background = null
             };
 
-            var separator1 = new Panel
+            body.Widgets.Add(new Label
             {
-                Height = 1,
-                Background = new SolidBrush(Color.DimGray * 0.5f)
-            };
-            mainContent.Widgets.Add(separator1);
+                Text = "APPEARANCE",
+                TextColor = ButtonsEventsSettings.DimTextColor
+            });
 
-            var themeRow = new VerticalStackPanel
+            var themeRow = new HorizontalStackPanel
             {
-                Spacing = 5,
+                Spacing = 24,
                 Background = null
             };
 
-            var radioPanel = new HorizontalStackPanel
+            themeRow.Widgets.Add(new Label
             {
-                Spacing = 15,
-                Background = null
-            };
-
-            var themeLabel = new Label
-            {
-                Text = "Color Theme:",
+                Text = "Color theme",
+                Width = 130,
                 VerticalAlignment = VerticalAlignment.Center
-            };
-            radioPanel.Widgets.Add(themeLabel);
-            bool DarkMode = ButtonsEventsSettings.DarkMode;
-            bool WhitePressed = false, DarkPressed = false;
+            });
 
-            if (!DarkMode)
-            {
-                WhitePressed = true;
-            } 
+            bool darkMode = ButtonsEventsSettings.DarkMode;
+
             var whiteRadio = new RadioButton
             {
                 Content = new Label { Text = "Light" },
                 VerticalAlignment = VerticalAlignment.Center,
-                IsPressed = WhitePressed
+                CheckContentSpacing = 6,
+                IsPressed = !darkMode
             };
             whiteRadio.Click += (s, e) => ButtonsEventsSettings.ApplyWhiteTheme();
-            radioPanel.Widgets.Add(whiteRadio);
+            themeRow.Widgets.Add(whiteRadio);
 
-            var dividerLabel = new Label
-            {
-                Text = "|",
-                TextColor = Color.DimGray
-            };
-            radioPanel.Widgets.Add(dividerLabel);
-
-            if (DarkMode)
-            {
-                DarkPressed = true;
-            }
             var blackRadio = new RadioButton
             {
                 Content = new Label { Text = "Dark" },
                 VerticalAlignment = VerticalAlignment.Center,
-                IsPressed = DarkPressed
+                CheckContentSpacing = 6,
+                IsPressed = darkMode
             };
             blackRadio.Click += (s, e) => ButtonsEventsSettings.ApplyBlackTheme();
-            radioPanel.Widgets.Add(blackRadio);
+            themeRow.Widgets.Add(blackRadio);
 
-            themeRow.Widgets.Add(radioPanel);
-            mainContent.Widgets.Add(themeRow);
+            body.Widgets.Add(themeRow);
+
+            body.Widgets.Add(new Label
+            {
+                Text = "Applied to the whole editor and saved.",
+                TextColor = ButtonsEventsSettings.DimTextColor,
+                Wrap = true
+            });
+
+            root.Widgets.Add(body);
+
+            // Divider above the buttons
+            root.Widgets.Add(new Panel
+            {
+                Height = 1,
+                Background = new SolidBrush(ButtonsEventsSettings.BorderColor)
+            });
+
+            // Footer
+            var footer = new HorizontalStackPanel
+            {
+                Spacing = 8,
+                Padding = new Thickness(12),
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Background = null
+            };
+
+            var cancelButton = new Button
+            {
+                Content = new Label { Text = "Cancel" },
+                Padding = new Thickness(18, 6)
+            };
+            // Closed handler in ButtonsEvents drops the unapplied choice
+            cancelButton.Click += (s, e) => window.Close();
+            footer.Widgets.Add(cancelButton);
 
             var applyButton = new Button
             {
-                Content = new Label { Text = "Apply" },
-                HorizontalAlignment = HorizontalAlignment.Right,
-                VerticalAlignment = VerticalAlignment.Bottom,
-                Margin = new Thickness(0, 0, 15, 15),
-                Padding = new Thickness(15, 8),
-                
-                
-
+                Content = new Label { Text = "Apply", TextColor = Color.White },
+                Padding = new Thickness(18, 6),
+                Background = new SolidBrush(ButtonsEventsSettings.AccentColor),
+                OverBackground = new SolidBrush(ButtonsEventsSettings.AccentHoverColor),
+                PressedBackground = new SolidBrush(ButtonsEventsSettings.AccentHoverColor),
+                Border = null
             };
 
             applyButton.Click += (s, e) =>
@@ -116,17 +123,15 @@ namespace GhostEngine.DesktopGL.Editor.Settings
                 window.Close();
                 SettingsWindowInstance = null;
                 ButtonsEventsSettings.ApplyButton();
-
             };
+            footer.Widgets.Add(applyButton);
 
-            rootPanel.Widgets.Add(mainContent);
-            rootPanel.Widgets.Add(applyButton);
+            root.Widgets.Add(footer);
 
-            window.Content = rootPanel;
+            window.Content = root;
             SettingsWindowInstance = window;
 
             return window;
         }
-        
     }
 }

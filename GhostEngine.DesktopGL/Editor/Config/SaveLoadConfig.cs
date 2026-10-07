@@ -10,7 +10,7 @@ namespace GhostEngine.DesktopGL.Editor.Config
         private const string FolderName = "Editor/Config";
         private const string FileName = "Data.json";
 
-        private static readonly string DataFilePath = Path.Combine(FolderName, FileName);
+        private static readonly string DataFilePath = Path.Combine(AppContext.BaseDirectory, FolderName, FileName);
 
         public class EngineData
         {
