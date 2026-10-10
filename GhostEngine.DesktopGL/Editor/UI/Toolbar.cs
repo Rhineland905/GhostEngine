@@ -20,19 +20,13 @@ namespace GhostEngine.DesktopGL.Editor.UI
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Stretch,
                 Width = 240,
-                Padding = new Thickness(10),
+                Padding = new Thickness(0, 10), 
                 Spacing = 4,
                 Border = new SolidBrush( ButtonsEventsSettings.BorderColor),
                 BorderThickness = new Thickness(0, 0, 1, 0),
                 Background = new SolidBrush(ButtonsEventsSettings.SurfaceColor)
                 
             };
-
-            var separatorTools = new VerticalSeparator
-            {
-                Thickness = 2,
-            };
-            toolBar.Widgets.Add(separatorTools);
 
             var search = new TextBox
             {
@@ -45,75 +39,117 @@ namespace GhostEngine.DesktopGL.Editor.UI
                 Background = new SolidBrush(ButtonsEventsSettings.InputBackgroundColor),
                 ClipToBounds = true
             };
-            toolBar.Widgets.Add(search);
 
-            var layout = new Grid {
-                ColumnSpacing = 20,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                Border = new SolidBrush(ButtonsEventsSettings.BorderColor),
-                BorderThickness = new Thickness(0, 0, 0, 1)
-            };
-
-            layout.ColumnsProportions.Add(new Proportion(ProportionType.Auto)); // Tiles
-            layout.ColumnsProportions.Add(new Proportion(ProportionType.Auto)); // Objects
-
-            var tiles = CreateTab("Tiles");
-            var objects = CreateTab("Objects");
-
-            tiles.Click += (s, e) => { SetTabActive(tiles, true); SetTabActive(objects, false); };
-            objects.Click += (s, e) => { SetTabActive(objects, true); SetTabActive(tiles, false); };
-
-            SetTabActive(tiles, false);
-            SetTabActive(objects, true);
-
-            layout.Widgets.Add(tiles);
-            layout.Widgets.Add(objects);
-
-            Grid.SetColumn(tiles, 0);
-            Grid.SetColumn(objects, 1);
-            toolBar.Widgets.Add(layout);
-
-            var separatorItems = new VerticalSeparator
+            var searchHolder = new Panel
             {
-                Thickness = 2,
+                Background = null,
+                Padding = new Thickness(10, 0),
+                HorizontalAlignment = HorizontalAlignment.Stretch
             };
+            searchHolder.Widgets.Add(search);
+            toolBar.Widgets.Add(searchHolder);
+
+            var bGrid = new Grid
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                BorderThickness = new Thickness(0, 0, 0, 1),
+                Border = new SolidBrush( ButtonsEventsSettings.BorderColor),
+            };
+            bGrid.ColumnsProportions.Add(new Proportion(ProportionType.Part, 1));
+            bGrid.ColumnsProportions.Add(new Proportion(ProportionType.Part, 1));
+
+            var TabObjects = CreateTabObjects();
+            var TabTiles = CreateTabTiles();
+
+            var bTiles = new Button
+            {
+                Background = new SolidBrush(ButtonsEventsSettings.SurfaceColor),
+                Content = new Label { Text = "Tiles", HorizontalAlignment = HorizontalAlignment.Center },
+                Padding = new Thickness(8, 6),
+                BorderThickness = new Thickness(0, 0, 0, 2),
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                OverBackground = new SolidBrush(ButtonsEventsSettings.AccentHoverColor),
+                PressedBackground = new SolidBrush(ButtonsEventsSettings.AccentHoverColor),
+
+
+            };
+            Grid.SetColumn(bTiles, 0);
+            bGrid.Widgets.Add(bTiles);
+            var bObject = new Button
+            {
+                Background = new SolidBrush(ButtonsEventsSettings.SurfaceColor),
+                Content = new Label { Text = "Objects", HorizontalAlignment= HorizontalAlignment.Center },
+                Padding = new Thickness(8, 6),
+                BorderThickness = new Thickness(0, 0, 0, 2),
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                OverBackground = new SolidBrush(ButtonsEventsSettings.AccentHoverColor),
+                PressedBackground = new SolidBrush(ButtonsEventsSettings.AccentHoverColor),
+            };
+
+            bTiles.Click += (s, e) => ChoiceTab(true, bTiles, bObject, TabObjects, TabTiles);
+
+            bObject.Click += (s,e) => ChoiceTab(false, bTiles, bObject, TabObjects, TabTiles);
+
+            Grid.SetColumn(bObject, 1);
+            bGrid.Widgets.Add(bObject);
+            toolBar.Widgets.Add(bGrid);
+
+            toolBar.Widgets.Add(TabObjects);
+            toolBar.Widgets.Add(TabTiles);
+
+            ChoiceTab(false, bTiles, bObject,TabObjects, TabTiles);
             
 
-            toolBar.Widgets.Add(separatorItems);
+            
+
             return toolBar;
         }
-
-        private static Button CreateTab(string text)
+        private static void ChoiceTab(bool titleObrject, Button bTiles, Button bObject, VerticalStackPanel TabObjects, VerticalStackPanel TabTiles)
         {
-            var transparent = new SolidBrush(Color.Transparent);
-
-            return new Button
+            if (!titleObrject)
             {
-                Width = 90,
-                Padding = new Thickness(4, 6),
-                Background = transparent,
-                OverBackground = new SolidBrush(Color.White * 0.05f),
-                PressedBackground = transparent,
-                FocusedBackground = transparent,
-                BorderThickness = new Thickness(0, 0, 0, 2),
-                Content = new Label
-                {
-                    Text = text,
-                    HorizontalAlignment = HorizontalAlignment.Center
-                }
-            };
-        }
-
-        private static void SetTabActive(Button tab, bool active)
-        {
-            tab.Border = new SolidBrush(active ? ButtonsEventsSettings.AccentColor : Color.Transparent);
-
-            if (tab.Content is Label label)
-            {
-                label.TextColor = active
-                    ? Myra.Graphics2D.UI.Styles.Stylesheet.Current.LabelStyle.TextColor
-                    : ButtonsEventsSettings.DimTextColor;
+                bObject.Border = new SolidBrush(ButtonsEventsSettings.AccentColor);
+                bTiles.Border = new SolidBrush(Color.Transparent);
+                TabObjects.Visible = true;
+                TabTiles.Visible = false;
+            }
+            else {
+                bTiles.Border = new SolidBrush(ButtonsEventsSettings.AccentColor);
+                bObject.Border = new SolidBrush(Color.Transparent);
+                TabObjects.Visible = false;
+                TabTiles.Visible = true;
             }
         }
+        private static VerticalStackPanel CreateTabObjects()
+        {
+            var ObjectsTab = new VerticalStackPanel()
+            {
+            };
+            var text = new Label
+            {
+                Text = "May",
+                Width = 240
+            };
+            ObjectsTab.Widgets.Add(text);
+
+            return ObjectsTab;
+        }
+        private static VerticalStackPanel CreateTabTiles()
+        {
+            var TilessTab = new VerticalStackPanel()
+            {
+            };
+            var text = new Label
+            {
+                Text = "Gav",
+                Width = 240
+            };
+            TilessTab.Widgets.Add(text);
+
+            return TilessTab;
+        }
+
+
+
     }
 }

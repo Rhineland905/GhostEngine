@@ -45,3 +45,8 @@ C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\obj\De
 C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\obj\Debug\net9.0\GhostEngine.pdb
 C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\obj\Debug\net9.0\GhostEngine.DesktopGL.genruntimeconfig.cache
 C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\obj\Debug\net9.0\ref\GhostEngine.dll
+C:\Users\Artem\AppData\Local\Temp\claude\C--Users-Artem-source-repos-GhostEngine\a8242cec-b9c0-41fb-a890-c399420aad10\scratchpad\bcheck\GhostEngine.exe
+C:\Users\Artem\AppData\Local\Temp\claude\C--Users-Artem-source-repos-GhostEngine\a8242cec-b9c0-41fb-a890-c399420aad10\scratchpad\bcheck\GhostEngine.deps.json
+C:\Users\Artem\AppData\Local\Temp\claude\C--Users-Artem-source-repos-GhostEngine\a8242cec-b9c0-41fb-a890-c399420aad10\scratchpad\bcheck\GhostEngine.runtimeconfig.json
+C:\Users\Artem\AppData\Local\Temp\claude\C--Users-Artem-source-repos-GhostEngine\a8242cec-b9c0-41fb-a890-c399420aad10\scratchpad\bcheck\GhostEngine.dll
+C:\Users\Artem\AppData\Local\Temp\claude\C--Users-Artem-source-repos-GhostEngine\a8242cec-b9c0-41fb-a890-c399420aad10\scratchpad\bcheck\GhostEngine.pdb
