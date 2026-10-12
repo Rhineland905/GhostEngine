@@ -58,8 +58,8 @@ namespace GhostEngine.DesktopGL.Editor.UI
             bGrid.ColumnsProportions.Add(new Proportion(ProportionType.Part, 1));
             bGrid.ColumnsProportions.Add(new Proportion(ProportionType.Part, 1));
 
-            var TabObjects = CreateTabObjects();
-            var TabTiles = CreateTabTiles();
+            var TabObjects = Objects.CreateTabObjects();
+            var TabTiles = Tiles.CreateTabTiles();
 
             var bTiles = new Button
             {
@@ -120,34 +120,8 @@ namespace GhostEngine.DesktopGL.Editor.UI
                 TabTiles.Visible = true;
             }
         }
-        private static VerticalStackPanel CreateTabObjects()
-        {
-            var ObjectsTab = new VerticalStackPanel()
-            {
-            };
-            var text = new Label
-            {
-                Text = "May",
-                Width = 240
-            };
-            ObjectsTab.Widgets.Add(text);
-
-            return ObjectsTab;
-        }
-        private static VerticalStackPanel CreateTabTiles()
-        {
-            var TilessTab = new VerticalStackPanel()
-            {
-            };
-            var text = new Label
-            {
-                Text = "Gav",
-                Width = 240
-            };
-            TilessTab.Widgets.Add(text);
-
-            return TilessTab;
-        }
+        
+        
 
 
 

@@ -22,7 +22,7 @@ namespace GhostEngine.DesktopGL.Editor
         private Panel _mainPanel;
 
         private SpriteBatch _spriteBatch;
-        private Texture2D _pixel; // 1x1 white texture for lines and filled rectangles
+        private Texture2D _pixel; 
         
 
         private int windowW, windowH, monitorH, monitorW;
@@ -106,7 +106,6 @@ namespace GhostEngine.DesktopGL.Editor
            
             GraphicsDevice.Clear(ButtonsEventsSettings.BackgroundColor);
 
-            // The level is drawn first, the UI goes on top
             _spriteBatch.Begin();
             GridRenderer.Draw(_spriteBatch, _pixel);
             _spriteBatch.End();
