@@ -1,5 +1,6 @@
 ﻿using GhostEngine.DesktopGL.Editor.Canvas;
 using GhostEngine.DesktopGL.Editor.Config;
+using GhostEngine.DesktopGL.Editor.Model;
 using GhostEngine.DesktopGL.Editor.Settings;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,6 +21,7 @@ namespace GhostEngine.DesktopGL.Editor
         private Desktop _desktop;
         private Button _button;
         private Panel _mainPanel;
+        private MouseState _previousMouse;
 
         private SpriteBatch _spriteBatch;
         private Texture2D _pixel; 
@@ -86,6 +88,8 @@ namespace GhostEngine.DesktopGL.Editor
             _pixel = new Texture2D(GraphicsDevice, 1, 1);
             _pixel.SetData(new[] { Color.White });
 
+            EditorState.CurrentLevel = new Level(EditorState.DefaultLevelWidth, EditorState.DefaultLevelHeight);
+
             
             SaveLoadConfig.Check();
 
@@ -107,7 +111,9 @@ namespace GhostEngine.DesktopGL.Editor
             GraphicsDevice.Clear(ButtonsEventsSettings.BackgroundColor);
 
             _spriteBatch.Begin();
-            GridRenderer.Draw(_spriteBatch, _pixel);
+            LevelRenderer.Draw(_spriteBatch, _pixel, EditorState.CurrentLevel); // tiles first,
+            GridRenderer.Draw(_spriteBatch, _pixel);                            // grid lines on top
+            LevelRenderer.DrawObjects(_spriteBatch, _pixel, EditorState.CurrentLevel); // objects above the grid
             _spriteBatch.End();
 
             _desktop?.Render();
@@ -116,6 +122,9 @@ namespace GhostEngine.DesktopGL.Editor
         }
         protected override void Update(GameTime gameTime)
         {
+            var mouse = Mouse.GetState();
+            PlacementTool.Update(mouse, _previousMouse,IsActive);
+            _previousMouse = mouse; 
             base.Update(gameTime);
         }
 

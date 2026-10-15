@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GhostEngine")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+19f57b0f609bb39daed44d7808cf89d0a4858e0b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d8f4f96b87a272a2d8d13d153f5d85df28fba6c4")]
 [assembly: System.Reflection.AssemblyProductAttribute("GhostEngine")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GhostEngine")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

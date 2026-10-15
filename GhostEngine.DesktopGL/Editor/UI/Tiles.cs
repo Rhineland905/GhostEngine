@@ -1,22 +1,28 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GhostEngine.DesktopGL.Editor.Model;
 using Myra.Graphics2D.UI;
 
 namespace GhostEngine.DesktopGL.Editor.UI
 {
     internal class Tiles
     {
+        private static readonly string[] Categories = { "Terrain", "Platforms", "Hazards", "Decor" };
+
         public static VerticalStackPanel CreateTabTiles()
         {
             var TilessTab = PaletteList.CreateList();
 
-            TilessTab.Widgets.Add(PaletteList.CreateHeader("Terrain", first: true));
-            TilessTab.Widgets.Add(PaletteList.CreateItem("Floor", new Color(120, 130, 146)));
+            for (int i = 0; i < Categories.Length; i++)
+            {
+                TilessTab.Widgets.Add(PaletteList.CreateHeader(Categories[i], first: i == 0));
 
-            TilessTab.Widgets.Add(PaletteList.CreateHeader("Platforms"));
-
-            TilessTab.Widgets.Add(PaletteList.CreateHeader("Hazards"));
-
-            TilessTab.Widgets.Add(PaletteList.CreateHeader("Decor"));
+                foreach (var tile in TileCatalog.All)
+                {
+                    if (tile.Category == Categories[i])
+                    {
+                        TilessTab.Widgets.Add(PaletteList.CreateTileItem(tile));
+                    }
+                }
+            }
 
             return TilessTab;
         }

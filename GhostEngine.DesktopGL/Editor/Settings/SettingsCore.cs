@@ -17,7 +17,7 @@ namespace GhostEngine.DesktopGL.Editor.Settings
             {
                 Title = "Settings",
                 Width = 440,
-                Height = 220 // explicit so Myra can center the window
+                Height = 220 
             };
 
             var root = new VerticalStackPanel { Background = null };

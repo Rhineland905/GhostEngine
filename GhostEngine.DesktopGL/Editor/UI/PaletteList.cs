@@ -1,3 +1,5 @@
+using GhostEngine.DesktopGL.Editor.Model;
+using GhostEngine.DesktopGL.Editor.Model.Objects;
 using GhostEngine.DesktopGL.Editor.Settings;
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D;
@@ -13,10 +15,17 @@ namespace GhostEngine.DesktopGL.Editor.UI
 
         public static string SelectedItem { get; private set; }
 
+        public static TileDefinition SelectedTile { get; private set; }
+
+        // Object type to place; null when nothing or a tile is selected
+        public static GameObjectDefinition SelectedObject { get; private set; }
+
         public static VerticalStackPanel CreateList()
         {
             _selected = null;
             SelectedItem = null;
+            SelectedTile = null;
+            SelectedObject = null;
 
             return new VerticalStackPanel
             {
@@ -34,6 +43,21 @@ namespace GhostEngine.DesktopGL.Editor.UI
                 TextColor = ButtonsEventsSettings.DimTextColor,
                 Margin = new Thickness(0, first ? 0 : 10, 0, 4)
             };
+        }
+
+        public static Button CreateTileItem(TileDefinition tile)
+        {
+            var button = CreateItem(tile.Name, tile.PreviewColor);
+            button.Click += (s, e) => SelectedTile = tile; 
+            return button;
+        }
+
+        // Row for an object type from the catalog: selecting it sets SelectedObject
+        public static Button CreateObjectItem(GameObjectDefinition definition)
+        {
+            var button = CreateItem(definition.Name, definition.PreviewColor);
+            button.Click += (s, e) => SelectedObject = definition;
+            return button;
         }
 
         public static Button CreateItem(string name, Color previewColor)
@@ -70,6 +94,8 @@ namespace GhostEngine.DesktopGL.Editor.UI
 
                 _selected = button;
                 SelectedItem = name;
+                SelectedTile = null;   // tile / object rows set theirs again in their own handler
+                SelectedObject = null;
                 SetSelected(button, true);
             };
 
