@@ -1,7 +1,9 @@
 ﻿using GhostEngine.DesktopGL.Editor.Config;
+using GhostEngine.DesktopGL.Editor.SaveLoadData;
 using GhostEngine.DesktopGL.Editor.Settings;
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
+using Myra.Graphics2D.UI.File;
 using System;
 
 namespace GhostEngine.DesktopGL.Editor
@@ -38,10 +40,20 @@ namespace GhostEngine.DesktopGL.Editor
                     Console.WriteLine("✓ Создан новый файл");
                     break;
                 case "Open":
-                    Console.WriteLine("✓ Открыт файл");
+                    var dialogOpen = new FileDialog(FileDialogMode.OpenFile) { Filter = "*.json", Folder = AppContext.BaseDirectory, AutoAddFilterExtension = true };
+                    dialogOpen.Closed += (s, a) =>
+                    {
+                        EditorState.CurrentLevel = SaveLevel.Load(dialogOpen.FilePath);
+                    };
+                    dialogOpen.ShowModal(ButtonsEvents.DesktopInstance);
                     break;
                 case "Save":
-                    Console.WriteLine("✓ Файл сохранен");
+                    var dialogSave = new FileDialog(FileDialogMode.SaveFile) { Filter = "*.json", Folder = AppContext.BaseDirectory, AutoAddFilterExtension = true };
+                    dialogSave.Closed += (s, a) =>
+                    {
+                        SaveLevel.Save(EditorState.CurrentLevel, dialogSave.FilePath);
+                    };
+                    dialogSave.ShowModal(ButtonsEvents.DesktopInstance);
                     break;
                 case "Settings":
 
