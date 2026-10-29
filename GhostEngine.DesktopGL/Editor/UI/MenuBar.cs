@@ -18,7 +18,9 @@ namespace GhostEngine.DesktopGL.Editor.UI
             };
 
             var file = new MenuItem { Text = "File" };
-            AddItem(file, "New", "Ctrl+N");
+            AddItem(file, "New Project", "Ctrl+N");
+            AddItem(file, "Open Project", "Ctrl+P");
+            AddItem(file, "New Level", "");
             AddItem(file, "Open", "Ctrl+O");
             AddItem(file, "Save", "Ctrl+S");
             file.Items.Add(new MenuSeparator());

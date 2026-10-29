@@ -119,7 +119,7 @@ namespace GhostEngine.DesktopGL.Editor.Settings
 
             applyButton.Click += (s, e) =>
             {
-                SaveLoadConfig.SaveData(new EngineData { IsDarkMode = ButtonsEventsSettings.DarkMode });
+                SaveData(new EngineData { IsDarkMode = ButtonsEventsSettings.DarkMode });
                 window.Close();
                 SettingsWindowInstance = null;
                 ButtonsEventsSettings.ApplyButton();

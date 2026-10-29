@@ -10,6 +10,7 @@ using Myra.Graphics2D.UI;
 using System;
 using System.Diagnostics;
 using System.Xml.Linq;
+using static GhostEngine.DesktopGL.Editor.Config.SaveLoadConfig;
 
 
 namespace GhostEngine.DesktopGL.Editor
@@ -22,6 +23,7 @@ namespace GhostEngine.DesktopGL.Editor
         private Button _button;
         private Panel _mainPanel;
         private MouseState _previousMouse;
+        private KeyboardState _previousKeyboard;
 
         private SpriteBatch _spriteBatch;
         private Texture2D _pixel; 
@@ -97,11 +99,14 @@ namespace GhostEngine.DesktopGL.Editor
             var currentSettings = SaveLoadConfig.LoadData();
             ButtonsEventsSettings.DarkMode = currentSettings.IsDarkMode;
             ButtonsEventsSettings.UpdateGlobalStylesheet(currentSettings.IsDarkMode);
+            ButtonsEvents.PathLastProject = currentSettings.PathLastProject;
+            
 
-           //CreateGUI
+            //CreateGUI
             _mainPanel = UIManager.CreateMainUI() as Panel;
             ButtonsEvents.DesktopInstance = _desktop;
             ButtonsEventsSettings.DesktopInstance = _desktop;
+            
 
             _desktop.Root = _mainPanel;
         }
@@ -122,10 +127,26 @@ namespace GhostEngine.DesktopGL.Editor
         }
         protected override void Update(GameTime gameTime)
         {
+            //Mouse
             var mouse = Mouse.GetState();
             PlacementTool.Update(mouse, _previousMouse,IsActive);
-            _previousMouse = mouse; 
+            _previousMouse = mouse;
+
+            //Keyboard
+            Hotkeys.Update(IsActive, _desktop);
+
             base.Update(gameTime);
+        }
+
+        protected override void OnExiting(object sender, ExitingEventArgs args)
+        {
+            SaveLoadConfig.SaveData(new EngineData { 
+                IsDarkMode = ButtonsEventsSettings.DarkMode,
+                PathLastProject = ButtonsEvents.PathLastProject
+
+            });
+            
+            base.OnExiting(sender, args);
         }
 
     }

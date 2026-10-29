@@ -19,4 +19,8 @@
       <LogicalName>Icon.bmp</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Editor\Model\Objects\" />
+    <Folder Include="Editor\Model\Tile\" />
+  </ItemGroup>
 </Project>

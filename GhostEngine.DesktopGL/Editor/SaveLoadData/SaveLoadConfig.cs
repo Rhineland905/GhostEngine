@@ -15,6 +15,7 @@ namespace GhostEngine.DesktopGL.Editor.Config
         public class EngineData
         {
             public bool IsDarkMode { get; set; }
+            public string PathLastProject { get; set; }
         }
 
         public static void SaveData(EngineData settings)

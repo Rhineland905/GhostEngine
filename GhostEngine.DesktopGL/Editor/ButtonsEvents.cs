@@ -1,10 +1,13 @@
 ﻿using GhostEngine.DesktopGL.Editor.Config;
+using GhostEngine.DesktopGL.Editor.Model;
 using GhostEngine.DesktopGL.Editor.SaveLoadData;
 using GhostEngine.DesktopGL.Editor.Settings;
+using GhostEngine.DesktopGL.Editor.UI;
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
 using Myra.Graphics2D.UI.File;
 using System;
+using System.IO;
 
 namespace GhostEngine.DesktopGL.Editor
 {
@@ -12,12 +15,15 @@ namespace GhostEngine.DesktopGL.Editor
     {
         public static Desktop DesktopInstance { get; set; }
         public static Window SettingsWindowInstance { get; set; }
-
+        public static string PathLastProject { get; set; }
+        public static string PathLastSaveLevel { get; set; }
         public static void HandleMenuEvent(string Type)
         {
             switch (Type)
-            {
-                case "New":
+            {   
+                case "New Project":
+                case "Open Project":
+                case "New Level":
                 case "Open":
                 case "Save":
                 case "Settings":
@@ -36,27 +42,67 @@ namespace GhostEngine.DesktopGL.Editor
             switch (action)
             {
                 
-                case "New":
-                    Console.WriteLine("✓ Создан новый файл");
+                case "New Project":
+                    try
+                    {
+                        var dialogNewProject = new FileDialog(FileDialogMode.SaveFile) { Folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) };
+                        dialogNewProject.Closed += (s, a) =>
+                        {
+                            if (!dialogNewProject.Result) return;
+                            PathLastProject = dialogNewProject.FilePath;
+                            CreateNew.Create(dialogNewProject.FilePath);
+
+                        };
+                        dialogNewProject.ShowModal(DesktopInstance);
+                    }
+                    catch(Exception ex) { MessageBox.ShowError(ex.Message); }
+                    break;
+                case "Open Project":
+                    try
+                    {
+                        var dialogOpenProject = new FileDialog(FileDialogMode.ChooseFolder) { Folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)  };
+                        dialogOpenProject.Closed += (s, a) =>
+                        {
+                            if (!dialogOpenProject.Result) return;
+                            PathLastProject = dialogOpenProject.FilePath;
+                        };
+                        dialogOpenProject.ShowModal(DesktopInstance);
+                    }
+                    catch (Exception ex) { MessageBox.ShowError(ex.Message); }
                     break;
                 case "Open":
-                    var dialogOpen = new FileDialog(FileDialogMode.OpenFile) { Filter = "*.json", Folder = AppContext.BaseDirectory, AutoAddFilterExtension = true };
-                    dialogOpen.Closed += (s, a) =>
-                    {
-                        EditorState.CurrentLevel = SaveLevel.Load(dialogOpen.FilePath);
-                    };
-                    dialogOpen.ShowModal(ButtonsEvents.DesktopInstance);
+                    try { 
+                        var dialogOpen = new FileDialog(FileDialogMode.OpenFile) { Filter = "*.json", Folder = PathLastProject+"\\Levels", AutoAddFilterExtension = true };
+                        dialogOpen.Closed += (s, a) =>
+                        {
+                            if (!dialogOpen.Result) return;
+                            EditorState.CurrentLevel = SaveLevel.Load(dialogOpen.FilePath);
+                        };
+                        dialogOpen.ShowModal(DesktopInstance);
+                    }
+                    catch (Exception ex) { MessageBox.ShowError(ex.Message); }
                     break;
                 case "Save":
-                    var dialogSave = new FileDialog(FileDialogMode.SaveFile) { Filter = "*.json", Folder = AppContext.BaseDirectory, AutoAddFilterExtension = true };
-                    dialogSave.Closed += (s, a) =>
+                    try
                     {
-                        SaveLevel.Save(EditorState.CurrentLevel, dialogSave.FilePath);
-                    };
-                    dialogSave.ShowModal(ButtonsEvents.DesktopInstance);
+                        if(PathLastSaveLevel == PathLastProject + "\\Levels\\") { 
+                            if (PathLastSaveLevel == null) { PathLastSaveLevel = PathLastProject + "\\Levels\\"; }
+                            var dialogSave = new FileDialog(FileDialogMode.SaveFile) { Filter = "*.json", FilePath = PathLastSaveLevel, AutoAddFilterExtension = true };
+                            dialogSave.Closed += (s, a) =>
+                            {
+                                if (!dialogSave.Result) return;
+                                PathLastSaveLevel = dialogSave.FilePath;
+                                SaveLevel.Save(EditorState.CurrentLevel, dialogSave.FilePath);
+                            };
+                            dialogSave.ShowModal(DesktopInstance);
+                        }else
+                        {
+                            SaveLevel.Save(EditorState.CurrentLevel, PathLastSaveLevel);
+                        }
+                    }
+                    catch (Exception ex) { MessageBox.ShowError(ex.Message); }
                     break;
-                case "Settings":
-
+                case "Settings": 
                     if (SettingsWindowInstance != null)
                     {
                         break;
@@ -83,10 +129,25 @@ namespace GhostEngine.DesktopGL.Editor
 
                     }
                     break;
+                case "New Level":
+                    try
+                    {
+                        EditorState.CurrentLevel = new Level(EditorState.DefaultLevelWidth, EditorState.DefaultLevelHeight);
+                        var dialogNewLevel = new FileDialog(FileDialogMode.SaveFile) { Folder = PathLastProject + "\\Levels" };
+                        dialogNewLevel.Closed += (s, a) =>
+                        {
+                            if (!dialogNewLevel.Result) return;
+                            PathLastSaveLevel = dialogNewLevel.FilePath;
+                        };
+                        dialogNewLevel.ShowModal(DesktopInstance);
+                    }
+                    catch (Exception ex) { MessageBox.ShowError(ex.Message); }
+                    break;
                 case "Exit":
                     Environment.Exit(0);
                     break;
             }
         }
+        
     }
 }
