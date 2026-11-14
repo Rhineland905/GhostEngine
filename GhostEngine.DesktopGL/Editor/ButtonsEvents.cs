@@ -4,9 +4,11 @@ using GhostEngine.DesktopGL.Editor.SaveLoadData;
 using GhostEngine.DesktopGL.Editor.Settings;
 using GhostEngine.DesktopGL.Editor.UI;
 using Microsoft.Xna.Framework;
+using Myra;
 using Myra.Graphics2D.UI;
 using Myra.Graphics2D.UI.File;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 
 namespace GhostEngine.DesktopGL.Editor
@@ -32,10 +34,21 @@ namespace GhostEngine.DesktopGL.Editor
                     break;
 
                 default:
-                    Console.WriteLine($"Неизвестная команда: {Type}");
+                    MessageBox.ShowError("Unknown command");
                     break;
             }
         }
+        
+        private static string LevelsFolder()
+        {
+            if (!string.IsNullOrEmpty(PathLastProject))
+            {
+                string levels = Path.Combine(PathLastProject, "Levels");
+                if (Directory.Exists(levels)) return levels;
+            }
+            return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        }
+
         private static void FileMenu(string action)
         {
             
@@ -56,7 +69,9 @@ namespace GhostEngine.DesktopGL.Editor
                         dialogNewProject.ShowModal(DesktopInstance);
                     }
                     catch(Exception ex) { MessageBox.ShowError(ex.Message); }
+                    
                     break;
+                    
                 case "Open Project":
                     try
                     {
@@ -72,11 +87,18 @@ namespace GhostEngine.DesktopGL.Editor
                     break;
                 case "Open":
                     try { 
-                        var dialogOpen = new FileDialog(FileDialogMode.OpenFile) { Filter = "*.json", Folder = PathLastProject+"\\Levels", AutoAddFilterExtension = true };
+                        var dialogOpen = new FileDialog(FileDialogMode.OpenFile) { Filter = "*.json", Folder = LevelsFolder(), AutoAddFilterExtension = true };
                         dialogOpen.Closed += (s, a) =>
                         {
                             if (!dialogOpen.Result) return;
-                            EditorState.CurrentLevel = SaveLevel.Load(dialogOpen.FilePath);
+                            var loaded = SaveLevel.Load(dialogOpen.FilePath);
+                            if (loaded == null)
+                            {
+                                MessageBox.ShowError("Could not open the level " + dialogOpen.FilePath);
+                                return;
+                            }
+                            EditorState.CurrentLevel = loaded;
+                            PathLastSaveLevel = dialogOpen.FilePath; // Ctrl+S now saves to the opened file
                         };
                         dialogOpen.ShowModal(DesktopInstance);
                     }
@@ -85,19 +107,26 @@ namespace GhostEngine.DesktopGL.Editor
                 case "Save":
                     try
                     {
-                        if(PathLastSaveLevel == PathLastProject + "\\Levels\\") { 
-                            if (PathLastSaveLevel == null) { PathLastSaveLevel = PathLastProject + "\\Levels\\"; }
-                            var dialogSave = new FileDialog(FileDialogMode.SaveFile) { Filter = "*.json", FilePath = PathLastSaveLevel, AutoAddFilterExtension = true };
+                        if (string.IsNullOrEmpty(PathLastSaveLevel))
+                        {
+                            var dialogSave = new FileDialog(FileDialogMode.SaveFile) { Filter = "*.json", Folder = LevelsFolder(), AutoAddFilterExtension = true };
                             dialogSave.Closed += (s, a) =>
                             {
                                 if (!dialogSave.Result) return;
-                                PathLastSaveLevel = dialogSave.FilePath;
-                                SaveLevel.Save(EditorState.CurrentLevel, dialogSave.FilePath);
+                                if (SaveLevel.Save(EditorState.CurrentLevel, dialogSave.FilePath))
+                                {
+                                    PathLastSaveLevel = dialogSave.FilePath;
+                                }
+                                else
+                                {
+                                    MessageBox.ShowError("Could not save the level to " + dialogSave.FilePath);
+                                }
                             };
                             dialogSave.ShowModal(DesktopInstance);
-                        }else
+                        }
+                        else if (!SaveLevel.Save(EditorState.CurrentLevel, PathLastSaveLevel))
                         {
-                            SaveLevel.Save(EditorState.CurrentLevel, PathLastSaveLevel);
+                            MessageBox.ShowError("Could not save the level to " + PathLastSaveLevel);
                         }
                     }
                     catch (Exception ex) { MessageBox.ShowError(ex.Message); }
@@ -137,14 +166,20 @@ namespace GhostEngine.DesktopGL.Editor
                         dialogNewLevel.Closed += (s, a) =>
                         {
                             if (!dialogNewLevel.Result) return;
-                            PathLastSaveLevel = dialogNewLevel.FilePath;
+                            var dialog = MessageBox.CreateLevel((width, height) =>
+                            {
+                                EditorState.CurrentLevel = new Level(width, height);
+                                PathLastSaveLevel = dialogNewLevel.FilePath;
+                            });
+                            dialog.ShowModal(DesktopInstance);
                         };
                         dialogNewLevel.ShowModal(DesktopInstance);
                     }
                     catch (Exception ex) { MessageBox.ShowError(ex.Message); }
                     break;
                 case "Exit":
-                    Environment.Exit(0);
+
+                    MyraEnvironment.Game.Exit();
                     break;
             }
         }

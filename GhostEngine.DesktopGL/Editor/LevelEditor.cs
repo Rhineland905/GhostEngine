@@ -1,6 +1,7 @@
 ﻿using GhostEngine.DesktopGL.Editor.Canvas;
 using GhostEngine.DesktopGL.Editor.Config;
 using GhostEngine.DesktopGL.Editor.Model;
+using GhostEngine.DesktopGL.Editor.SaveLoadData;
 using GhostEngine.DesktopGL.Editor.Settings;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,6 +10,7 @@ using Myra;
 using Myra.Graphics2D.UI;
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Xml.Linq;
 using static GhostEngine.DesktopGL.Editor.Config.SaveLoadConfig;
 
@@ -26,8 +28,9 @@ namespace GhostEngine.DesktopGL.Editor
         private KeyboardState _previousKeyboard;
 
         private SpriteBatch _spriteBatch;
-        private Texture2D _pixel; 
-        
+        private Texture2D _pixel;
+
+        private double _autoSaveTimer;
 
         private int windowW, windowH, monitorH, monitorW;
         private bool isFullscreen = false;
@@ -46,8 +49,9 @@ namespace GhostEngine.DesktopGL.Editor
             monitorW = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             monitorH = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 
-            windowW = monitorW;
-            windowH = monitorH;
+            // Start smaller than the screen (title bar and taskbar take space); Initialize maximizes the window
+            windowW = Math.Max((int)(monitorW * 0.8), MinWindowWidth);
+            windowH = Math.Max((int)(monitorH * 0.8), MinWindowHeight);
 
             _graphics.PreferredBackBufferWidth = windowW;
             _graphics.PreferredBackBufferHeight = windowH;
@@ -79,9 +83,18 @@ namespace GhostEngine.DesktopGL.Editor
             }
         }
 
+        // MonoGame has no Maximize API; DesktopGL runs on SDL2, so call it directly
+        [DllImport("SDL2", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void SDL_MaximizeWindow(IntPtr window);
+
         protected override void Initialize()
         {
             base.Initialize();
+
+            // Fits the work area (no taskbar overlap); ClientSizeChanged then resizes the back buffer
+            Window.Position = new Point((monitorW - windowW) / 2, (monitorH - windowH) / 2);
+            try { SDL_MaximizeWindow(Window.Handle); }
+            catch (Exception ex) { Debug.WriteLine($"Maximize failed: {ex.Message}"); }
 
             MyraEnvironment.Game = this;
             _desktop = new Desktop();
@@ -100,7 +113,8 @@ namespace GhostEngine.DesktopGL.Editor
             ButtonsEventsSettings.DarkMode = currentSettings.IsDarkMode;
             ButtonsEventsSettings.UpdateGlobalStylesheet(currentSettings.IsDarkMode);
             ButtonsEvents.PathLastProject = currentSettings.PathLastProject;
-            
+            ButtonsEvents.PathLastSaveLevel = currentSettings.PathLastLevel;
+            EditorState.CurrentLevel = SaveLevel.Load(ButtonsEvents.PathLastSaveLevel);
 
             //CreateGUI
             _mainPanel = UIManager.CreateMainUI() as Panel;
@@ -135,6 +149,12 @@ namespace GhostEngine.DesktopGL.Editor
             //Keyboard
             Hotkeys.Update(IsActive, _desktop);
 
+            //AutoSave
+            AutoSave.autoSave(ref _autoSaveTimer,gameTime);
+           
+
+            
+
             base.Update(gameTime);
         }
 
@@ -142,7 +162,8 @@ namespace GhostEngine.DesktopGL.Editor
         {
             SaveLoadConfig.SaveData(new EngineData { 
                 IsDarkMode = ButtonsEventsSettings.DarkMode,
-                PathLastProject = ButtonsEvents.PathLastProject
+                PathLastProject = ButtonsEvents.PathLastProject,
+                PathLastLevel = ButtonsEvents.PathLastSaveLevel
 
             });
             

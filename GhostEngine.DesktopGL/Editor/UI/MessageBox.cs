@@ -1,4 +1,5 @@
-﻿using Myra.Graphics2D.UI;
+﻿using GhostEngine.DesktopGL.Editor.Model;
+using Myra.Graphics2D.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,6 +22,54 @@ namespace GhostEngine.DesktopGL.Editor.UI
             var box = Dialog.CreateMessageBox("Error", message);
             box.ButtonCancel.Visible = false;
             box.ShowModal(desktop);
+        }
+        public static Window CreateLevel(Action<int, int> onCreate)
+        {
+            var grid = new Grid { ColumnSpacing = 8, RowSpacing = 8 };
+            grid.ColumnsProportions.Add(new Proportion(ProportionType.Auto));
+            grid.ColumnsProportions.Add(new Proportion(ProportionType.Fill));
+            grid.RowsProportions.Add(new Proportion(ProportionType.Auto));
+            grid.RowsProportions.Add(new Proportion(ProportionType.Auto));
+
+            var window = new Dialog // Dialog = Window + OK/Cancel buttons
+            {
+                Title = "Create New Level",
+                Width = 440,
+                Height = 220
+            };
+
+            var widthLabel = new Label { Text = "Width" };
+            Grid.SetRow(widthLabel, 0);
+            Grid.SetColumn(widthLabel, 0);
+            grid.Widgets.Add(widthLabel);
+
+            var widthSpin = new SpinButton { Integer = true, Minimum = 8, Maximum = 512, Value = EditorState.DefaultLevelWidth };
+            Grid.SetRow(widthSpin, 0);
+            Grid.SetColumn(widthSpin, 1);
+            grid.Widgets.Add(widthSpin);
+
+            var heightLabel = new Label { Text = "Height" };
+            Grid.SetRow(heightLabel, 1);
+            Grid.SetColumn(heightLabel, 0);
+            grid.Widgets.Add(heightLabel);
+
+            var heightSpin = new SpinButton { Integer = true, Minimum = 8, Maximum = 512, Value = EditorState.DefaultLevelHeight };
+            Grid.SetRow(heightSpin, 1);
+            Grid.SetColumn(heightSpin, 1);
+            grid.Widgets.Add(heightSpin);
+
+            window.Content = grid;
+
+            window.Closed += (s, a) =>
+            {
+                if (!window.Result) return; 
+
+                int width = (int)(widthSpin.Value ?? EditorState.DefaultLevelWidth);
+                int height = (int)(heightSpin.Value ?? EditorState.DefaultLevelHeight);
+                onCreate(width, height);
+            };
+
+            return window;
         }
     }
 }

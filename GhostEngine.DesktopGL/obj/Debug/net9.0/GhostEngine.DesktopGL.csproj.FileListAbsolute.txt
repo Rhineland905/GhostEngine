@@ -50,3 +50,7 @@ C:\Users\Artem\AppData\Local\Temp\claude\C--Users-Artem-source-repos-GhostEngine
 C:\Users\Artem\AppData\Local\Temp\claude\C--Users-Artem-source-repos-GhostEngine\a8242cec-b9c0-41fb-a890-c399420aad10\scratchpad\bcheck\GhostEngine.runtimeconfig.json
 C:\Users\Artem\AppData\Local\Temp\claude\C--Users-Artem-source-repos-GhostEngine\a8242cec-b9c0-41fb-a890-c399420aad10\scratchpad\bcheck\GhostEngine.dll
 C:\Users\Artem\AppData\Local\Temp\claude\C--Users-Artem-source-repos-GhostEngine\a8242cec-b9c0-41fb-a890-c399420aad10\scratchpad\bcheck\GhostEngine.pdb
+C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\bin\Debug\net9.0\Content\Buttons\erase.png
+C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\bin\Debug\net9.0\Content\Buttons\move.png
+C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\bin\Debug\net9.0\Content\Buttons\paint.png
+C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\bin\Debug\net9.0\Content\Buttons\select.png

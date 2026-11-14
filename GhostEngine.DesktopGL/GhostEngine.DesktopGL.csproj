@@ -20,6 +20,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Update="Content\Buttons\*.png" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Buttons\" />
     <Folder Include="Editor\Model\Objects\" />
     <Folder Include="Editor\Model\Tile\" />
   </ItemGroup>

@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using GhostEngine.DesktopGL.Editor.Model.Objects;
+using GhostEngine.DesktopGL.Editor.UI;
 using Microsoft.Xna.Framework;
 
 namespace GhostEngine.DesktopGL.Editor.Model
 {
     internal class Level
     {
+        public bool IsDirty { get; set; }
         public int Width { get; }
         public int Height { get; }
 
@@ -34,6 +36,8 @@ namespace GhostEngine.DesktopGL.Editor.Model
 
         public void SetTile(int x, int y, TileDefinition tile)
         {
+            IsDirty = true;
+            if (ToolChoice.CheckToolState() != 2) return; 
             if (IsInside(x, y))
             {
                 _tiles[x, y] = tile;
@@ -58,11 +62,13 @@ namespace GhostEngine.DesktopGL.Editor.Model
         // A unique type (player spawn) is moved instead of duplicated.
         public void PlaceObject(int x, int y, GameObjectDefinition definition)
         {
+            if (ToolChoice.CheckToolState() != 2) return;
+            IsDirty = true;
             if (!IsInside(x, y) || definition == null)
             {
                 return;
             }
-
+            
             RemoveObjectAt(x, y);
 
             if (definition.IsUnique)
@@ -76,6 +82,8 @@ namespace GhostEngine.DesktopGL.Editor.Model
         // true if an object was removed
         public bool RemoveObjectAt(int x, int y)
         {
+            if (ToolChoice.CheckToolState() != 3) return false;
+            IsDirty = true;
             var gameObject = GetObjectAt(x, y);
             return gameObject != null && _objects.Remove(gameObject);
         }
