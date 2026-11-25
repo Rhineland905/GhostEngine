@@ -10,21 +10,16 @@ namespace GhostEngine.DesktopGL.Editor.Canvas
     {
         public static void Draw(SpriteBatch spriteBatch, Texture2D pixel, Level level)
         {
-            Rectangle area = WorkSpace.ScreenBounds;
-
-            if (level == null || area.Width <= 0 || area.Height <= 0)
+            if (level == null)
             {
                 return;
             }
 
             int size = GridRenderer.CellSize;
 
-            int visibleWidth = System.Math.Min(level.Width, (area.Width + size - 1) / size);
-            int visibleHeight = System.Math.Min(level.Height, (area.Height + size - 1) / size);
-
-            for (int y = 0; y < visibleHeight; y++)
+            for (int y = 0; y < level.Height; y++)
             {
-                for (int x = 0; x < visibleWidth; x++)
+                for (int x = 0; x < level.Width; x++)
                 {
                     TileDefinition tile = level.GetTile(x, y);
                     if (tile == null)
@@ -32,18 +27,20 @@ namespace GhostEngine.DesktopGL.Editor.Canvas
                         continue;
                     }
 
-                    var cell = new Rectangle(area.X + x * size, area.Y + y * size, size, size);
+                    var cell = new Rectangle(x * size, y * size, size, size);
                     spriteBatch.Draw(pixel, cell, tile.PreviewColor);
                 }
             }
         }
+    
+    
 
         // Objects go on top of tiles and the grid; drawn smaller than a cell so they stand out from tiles
         public static void DrawObjects(SpriteBatch spriteBatch, Texture2D pixel, Level level)
         {
             Rectangle area = WorkSpace.ScreenBounds;
 
-            if (level == null || area.Width <= 0 || area.Height <= 0)
+            if (level == null)
             {
                 return;
             }
@@ -53,11 +50,8 @@ namespace GhostEngine.DesktopGL.Editor.Canvas
 
             foreach (GameObject gameObject in level.Objects)
             {
-                var cell = new Rectangle(area.X + gameObject.Cell.X * size, area.Y + gameObject.Cell.Y * size, size, size);
-                if (!area.Intersects(cell))
-                {
-                    continue;
-                }
+                var cell = new Rectangle(gameObject.Cell.X * size, gameObject.Cell.Y * size, size, size);
+                
 
                 cell.Inflate(-inset, -inset);
                 spriteBatch.Draw(pixel, cell, gameObject.Definition.PreviewColor);

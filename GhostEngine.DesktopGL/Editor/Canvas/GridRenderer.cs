@@ -1,3 +1,4 @@
+using GhostEngine.DesktopGL.Editor.Model;
 using GhostEngine.DesktopGL.Editor.Settings;
 using GhostEngine.DesktopGL.Editor.UI;
 using Microsoft.Xna.Framework;
@@ -9,25 +10,25 @@ namespace GhostEngine.DesktopGL.Editor.Canvas
     {
         public const int CellSize = 32;
 
-        public static void Draw(SpriteBatch spriteBatch, Texture2D pixel)
+        public static void Draw(SpriteBatch spriteBatch, Texture2D pixel, Level level)
         {
-            Rectangle area = WorkSpace.ScreenBounds;
-
-            if (area.Width <= 0 || area.Height <= 0)
+            if (level == null)
             {
                 return;
             }
 
             Color color = ButtonsEventsSettings.GridColor;
+            int w = level.Width * CellSize;
+            int h = level.Height * CellSize;
 
-            for (int x = area.Left; x < area.Right; x += CellSize)
+            for (int x = 0; x <= w; x += CellSize)
             {
-                spriteBatch.Draw(pixel, new Rectangle(x, area.Top, 1, area.Height), color);
+                spriteBatch.Draw(pixel, new Rectangle(x, 0, 1, h), color);
             }
 
-            for (int y = area.Top; y < area.Bottom; y += CellSize)
+            for (int y = 0; y <= h; y += CellSize)
             {
-                spriteBatch.Draw(pixel, new Rectangle(area.Left, y, area.Width, 1), color);
+                spriteBatch.Draw(pixel, new Rectangle(0, y, w, 1), color);
             }
         }
     }

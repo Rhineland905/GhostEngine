@@ -36,10 +36,10 @@ namespace GhostEngine.DesktopGL.Editor.Model
 
         public void SetTile(int x, int y, TileDefinition tile)
         {
-            IsDirty = true;
-            if (ToolChoice.CheckToolState() != 2) return; 
+            
             if (IsInside(x, y))
             {
+                IsDirty = true;
                 _tiles[x, y] = tile;
             }
         }
@@ -62,7 +62,7 @@ namespace GhostEngine.DesktopGL.Editor.Model
         // A unique type (player spawn) is moved instead of duplicated.
         public void PlaceObject(int x, int y, GameObjectDefinition definition)
         {
-            if (ToolChoice.CheckToolState() != 2) return;
+           
             IsDirty = true;
             if (!IsInside(x, y) || definition == null)
             {
@@ -82,7 +82,6 @@ namespace GhostEngine.DesktopGL.Editor.Model
         // true if an object was removed
         public bool RemoveObjectAt(int x, int y)
         {
-            if (ToolChoice.CheckToolState() != 3) return false;
             IsDirty = true;
             var gameObject = GetObjectAt(x, y);
             return gameObject != null && _objects.Remove(gameObject);

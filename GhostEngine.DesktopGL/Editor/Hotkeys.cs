@@ -24,14 +24,8 @@ namespace GhostEngine.DesktopGL.Editor
             bool ctrl = _current.IsKeyDown(Keys.LeftControl) || _current.IsKeyDown(Keys.RightControl);
             if (ctrl && JustPressed(Keys.S))
             {
-                if (!(ButtonsEvents.PathLastSaveLevel == null))
-                {
-                    SaveLevel.Save(EditorState.CurrentLevel, ButtonsEvents.PathLastSaveLevel);
-                }
-                else
-                {
-                    ButtonsEvents.HandleMenuEvent("Save");
-                }
+                // Same path as File > Save: opens a dialog if needed, resets IsDirty, shows errors
+                ButtonsEvents.HandleMenuEvent("Save");
 
             }
             else if (ctrl && JustPressed(Keys.O))

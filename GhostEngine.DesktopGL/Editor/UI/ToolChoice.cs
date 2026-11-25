@@ -33,6 +33,7 @@ namespace GhostEngine.DesktopGL.Editor.UI
 
             };
 
+            _buttons.Clear(); // the UI is rebuilt on theme change; forget the old buttons
             toolChoice.Widgets.Add(CreateToolButton("select", EditorTool.Select));
             toolChoice.Widgets.Add(CreateToolButton("paint", EditorTool.Paint));
             toolChoice.Widgets.Add(CreateToolButton("erase", EditorTool.Erase));
@@ -43,11 +44,22 @@ namespace GhostEngine.DesktopGL.Editor.UI
 
         private static TextureRegion LoadIcon(string name)
         {
-            if (_icons.TryGetValue(name, out var cached)) return cached;
-            var path = Path.Combine(AppContext.BaseDirectory, "Content", "Buttons", name + ".png");
+            string theme;
+            if (ButtonsEventsSettings.DarkMode)
+            {
+                theme = "Black";
+            } else {
+                theme = "White";
+            }
+
+            // Theme is part of the key, otherwise a theme switch would return the old icon
+            string key = theme + "/" + name;
+            if (_icons.TryGetValue(key, out var cached)) return cached;
+
+            var path = Path.Combine(AppContext.BaseDirectory, "Content", "Buttons", theme, name + ".png");
 
             var region = new TextureRegion(Texture2D.FromFile(MyraEnvironment.GraphicsDevice, path));
-            _icons[name] = region;
+            _icons[key] = region;
             return region;
         }
        

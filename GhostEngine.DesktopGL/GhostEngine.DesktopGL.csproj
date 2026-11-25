@@ -20,11 +20,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Update="Content\Buttons\*.png" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Content\Buttons\Black\*.png" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Content\Buttons\White\*.png" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Content\Status\*.png" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Buttons\" />
+    <Folder Include="Content\Status\" />
     <Folder Include="Editor\Model\Objects\" />
     <Folder Include="Editor\Model\Tile\" />
+    <Folder Include="Editor\EditContent\" />
   </ItemGroup>
 </Project>
