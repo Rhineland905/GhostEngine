@@ -15,7 +15,7 @@ namespace GhostEngine.DesktopGL.Editor.Settings
         {
             var window = new Window
             {
-                Title = "Settings",
+                Title = Localization.Get("SettingsCore.Settings"),
                 Width = 440,
                 Height = 220 
             };
@@ -32,7 +32,7 @@ namespace GhostEngine.DesktopGL.Editor.Settings
 
             body.Widgets.Add(new Label
             {
-                Text = "APPEARANCE",
+                Text = Localization.Get("SettingsCore.APPEARANCE"),
                 TextColor = ButtonsEventsSettings.DimTextColor
             });
 
@@ -44,7 +44,7 @@ namespace GhostEngine.DesktopGL.Editor.Settings
 
             themeRow.Widgets.Add(new Label
             {
-                Text = "Color theme",
+                Text = Localization.Get("SettingsCore.ColorTheme"),
                 Width = 130,
                 VerticalAlignment = VerticalAlignment.Center
             });
@@ -53,7 +53,7 @@ namespace GhostEngine.DesktopGL.Editor.Settings
 
             var whiteRadio = new RadioButton
             {
-                Content = new Label { Text = "Light" },
+                Content = new Label { Text = Localization.Get("SettingsCore.Light") },
                 VerticalAlignment = VerticalAlignment.Center,
                 CheckContentSpacing = 6,
                 IsPressed = !darkMode
@@ -63,7 +63,7 @@ namespace GhostEngine.DesktopGL.Editor.Settings
 
             var blackRadio = new RadioButton
             {
-                Content = new Label { Text = "Dark" },
+                Content = new Label { Text = Localization.Get("SettingsCore.Dark") },
                 VerticalAlignment = VerticalAlignment.Center,
                 CheckContentSpacing = 6,
                 IsPressed = darkMode
@@ -75,7 +75,7 @@ namespace GhostEngine.DesktopGL.Editor.Settings
 
             body.Widgets.Add(new Label
             {
-                Text = "Applied to the whole editor and saved.",
+                Text = Localization.Get("SettingsCore.AppliedSaved"),
                 TextColor = ButtonsEventsSettings.DimTextColor,
                 Wrap = true
             });
@@ -100,7 +100,7 @@ namespace GhostEngine.DesktopGL.Editor.Settings
 
             var cancelButton = new Button
             {
-                Content = new Label { Text = "Cancel" },
+                Content = new Label { Text = Localization.Get("SettingsCore.Cancel") },
                 Padding = new Thickness(18, 6)
             };
             // Closed handler in ButtonsEvents drops the unapplied choice
@@ -109,7 +109,7 @@ namespace GhostEngine.DesktopGL.Editor.Settings
 
             var applyButton = new Button
             {
-                Content = new Label { Text = "Apply", TextColor = Color.White },
+                Content = new Label { Text = Localization.Get("SettingsCore.Apply"), TextColor = Color.White },
                 Padding = new Thickness(18, 6),
                 Background = new SolidBrush(ButtonsEventsSettings.AccentColor),
                 OverBackground = new SolidBrush(ButtonsEventsSettings.AccentHoverColor),

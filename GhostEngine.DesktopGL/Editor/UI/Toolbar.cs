@@ -34,7 +34,7 @@ namespace GhostEngine.DesktopGL.Editor.UI
                 BorderThickness = new Thickness(1, 1, 1, 1),
                 Padding = new Thickness(8, 5),
                 HorizontalAlignment = HorizontalAlignment.Stretch,
-                HintText = "Search",
+                HintText = Localization.Get("Toolbar.Search"),
                 TextColor = ButtonsEventsSettings.DimTextColor,
                 Background = new SolidBrush(ButtonsEventsSettings.InputBackgroundColor),
                 ClipToBounds = true
@@ -64,7 +64,7 @@ namespace GhostEngine.DesktopGL.Editor.UI
             var bTiles = new Button
             {
                 Background = new SolidBrush(ButtonsEventsSettings.SurfaceColor),
-                Content = new Label { Text = "Tiles", HorizontalAlignment = HorizontalAlignment.Center },
+                Content = new Label { Text = Localization.Get("Toolbar.Tiles"), HorizontalAlignment = HorizontalAlignment.Center },
                 Padding = new Thickness(8, 6),
                 BorderThickness = new Thickness(0, 0, 0, 2),
                 HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -78,7 +78,7 @@ namespace GhostEngine.DesktopGL.Editor.UI
             var bObject = new Button
             {
                 Background = new SolidBrush(ButtonsEventsSettings.SurfaceColor),
-                Content = new Label { Text = "Objects", HorizontalAlignment= HorizontalAlignment.Center },
+                Content = new Label { Text = Localization.Get("Toolbar.Objects"), HorizontalAlignment= HorizontalAlignment.Center },
                 Padding = new Thickness(8, 6),
                 BorderThickness = new Thickness(0, 0, 0, 2),
                 HorizontalAlignment = HorizontalAlignment.Stretch,

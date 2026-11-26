@@ -1,0 +1,53 @@
+{
+    "ButtonsEvents.Non" : "Nepoznata naredba",
+    "ButtonsEvents.CouldOpenTheLevel" : "Nije moguće otvoriti razinu ",
+    "ButtonsEvents.CouldSaveTheLevelTo" : "Nije moguće spremiti razinu u ",
+    "ButtonsEvents.CouldCreateTheLevelFile" : "Nije moguće stvoriti datoteku razine ",
+
+    "Toolbar.Search": "Pretraži",
+    "Toolbar.Tiles": "Pločice",
+    "Toolbar.Objects": "Objekti",
+
+    "MessageBox.Error": "Pogreška",
+    "MessageBox.CreateNewLevel": "Stvori novu razinu",
+    "MessageBox.Width": "Širina",
+    "MessageBox.Height": "Visina",
+
+    "MenuBar.File": "Datoteka",
+    "MenuBar.NewProject": "Novi projekt",
+    "MenuBar.OpenProject": "Otvori projekt",
+    "MenuBar.NewLevel": "Nova razina",
+    "MenuBar.Open": "Otvori",
+    "MenuBar.Save": "Spremi",
+    "MenuBar.Settings": "Postavke",
+    "MenuBar.Exit": "Izlaz",
+
+    "Objects.Player": "Igrač",
+    "Objects.Enemies": "Neprijatelji",
+    "Objects.Physics": "Fizika",
+    "Objects.Items": "Predmeti",
+    "Objects.Triggers": "Okidači",
+    "Objects.PlayerSpawn": "Početna točka igrača",
+    "Objects.Slime": "Sluz",
+    "Objects.Bat": "Šišmiš",
+    "Objects.Coin": "Novčić",
+
+    "Tiles.Terrain": "Teren",
+    "Tiles.Platforms": "Platforme",
+    "Tiles.Hazards": "Opasnosti",
+    "Tiles.Decor": "Dekor",
+    "Tiles.Floor": "Pod",
+    "Tiles.Platform": "Platforma",
+    "Tiles.Spikes": "Šiljci",
+
+    "SettingsCore.Settings": "Postavke",
+    "SettingsCore.APPEARANCE": "IZGLED",
+    "SettingsCore.ColorTheme": "Tema boja",
+    "SettingsCore.Light": "Svijetla",
+    "SettingsCore.Dark": "Tamna",
+    "SettingsCore.AppliedSaved": "Primijenjeno na cijeli uređivač i spremljeno.",
+    "SettingsCore.Cancel": "Odustani",
+    "SettingsCore.Apply": "Primijeni",
+
+    "CreateNew.ThisFolderAlreadyExists": "Ova mapa već postoji"
+}

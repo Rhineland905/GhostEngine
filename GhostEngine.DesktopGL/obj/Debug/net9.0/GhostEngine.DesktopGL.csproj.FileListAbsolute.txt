@@ -71,3 +71,6 @@ C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\bin\De
 C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\bin\Debug\net9.0\Content\Buttons\White\move.png
 C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\bin\Debug\net9.0\Content\Buttons\White\paint.png
 C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\bin\Debug\net9.0\Content\Buttons\White\select.png
+C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\bin\Debug\net9.0\Content\Lan\en.json
+C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\bin\Debug\net9.0\Content\Lan\hr.json
+C:\Users\Artem\source\repos\GhostEngine\GhostEngine\GhostEngine.DesktopGL\bin\Debug\net9.0\Content\Lan\uk.json

@@ -47,7 +47,8 @@ namespace GhostEngine.DesktopGL.Editor.UI
 
         public static Button CreateTileItem(TileDefinition tile)
         {
-            var button = CreateItem(tile.Name, tile.PreviewColor);
+            // Name stays the English id; only the shown text is translated
+            var button = CreateItem(Localization.Get("Tiles." + tile.Name.Replace(" ", "")), tile.PreviewColor);
             button.Click += (s, e) => SelectedTile = tile; 
             return button;
         }
@@ -55,7 +56,7 @@ namespace GhostEngine.DesktopGL.Editor.UI
         // Row for an object type from the catalog: selecting it sets SelectedObject
         public static Button CreateObjectItem(GameObjectDefinition definition)
         {
-            var button = CreateItem(definition.Name, definition.PreviewColor);
+            var button = CreateItem(Localization.Get("Objects." + definition.Name.Replace(" ", "")), definition.PreviewColor);
             button.Click += (s, e) => SelectedObject = definition;
             return button;
         }

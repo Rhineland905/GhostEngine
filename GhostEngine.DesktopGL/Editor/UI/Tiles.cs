@@ -1,4 +1,5 @@
 ﻿using GhostEngine.DesktopGL.Editor.Model;
+using GhostEngine.DesktopGL.Editor.Settings;
 using Myra.Graphics2D.UI;
 
 namespace GhostEngine.DesktopGL.Editor.UI
@@ -13,7 +14,7 @@ namespace GhostEngine.DesktopGL.Editor.UI
 
             for (int i = 0; i < Categories.Length; i++)
             {
-                TilessTab.Widgets.Add(PaletteList.CreateHeader(Categories[i], first: i == 0));
+                TilessTab.Widgets.Add(PaletteList.CreateHeader(Localization.Get("Tiles." + Categories[i]), first: i == 0));
 
                 foreach (var tile in TileCatalog.All)
                 {

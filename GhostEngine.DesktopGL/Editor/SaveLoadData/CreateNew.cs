@@ -1,4 +1,5 @@
-﻿using GhostEngine.DesktopGL.Editor.UI;
+﻿using GhostEngine.DesktopGL.Editor.Settings;
+using GhostEngine.DesktopGL.Editor.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +16,7 @@ namespace GhostEngine.DesktopGL.Editor.SaveLoadData
             {
                 if (Directory.Exists(path))
                 {
-                    MessageBox.ShowError("This folder already exists");
+                    MessageBox.ShowError(Localization.Get("CreateNew.ThisFolderAlreadyExists"));
                     return;
                 }
                 ButtonsEvents.PathLastProject = path;

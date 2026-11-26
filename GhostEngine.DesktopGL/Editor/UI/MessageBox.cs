@@ -1,4 +1,5 @@
 ﻿using GhostEngine.DesktopGL.Editor.Model;
+using GhostEngine.DesktopGL.Editor.Settings;
 using Myra.Graphics2D.UI;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,10 @@ namespace GhostEngine.DesktopGL.Editor.UI
             var desktop = ButtonsEvents.DesktopInstance;
             if (desktop == null)
             {
-                Debug.WriteLine($"Error: {message}");
+                Debug.WriteLine($"{Localization.Get("MessageBox.Error")}: {message}");
                 return;
             }
-            var box = Dialog.CreateMessageBox("Error", message);
+            var box = Dialog.CreateMessageBox(Localization.Get("MessageBox.Error"), message);
             box.ButtonCancel.Visible = false;
             box.ShowModal(desktop);
         }
@@ -33,12 +34,12 @@ namespace GhostEngine.DesktopGL.Editor.UI
 
             var window = new Dialog // Dialog = Window + OK/Cancel buttons
             {
-                Title = "Create New Level",
+                Title = Localization.Get("MessageBox.CreateNewLevel"),
                 Width = 440,
                 Height = 220
             };
 
-            var widthLabel = new Label { Text = "Width" };
+            var widthLabel = new Label { Text = Localization.Get("MessageBox.Width") };
             Grid.SetRow(widthLabel, 0);
             Grid.SetColumn(widthLabel, 0);
             grid.Widgets.Add(widthLabel);
@@ -48,7 +49,7 @@ namespace GhostEngine.DesktopGL.Editor.UI
             Grid.SetColumn(widthSpin, 1);
             grid.Widgets.Add(widthSpin);
 
-            var heightLabel = new Label { Text = "Height" };
+            var heightLabel = new Label { Text = Localization.Get("MessageBox.Height") };
             Grid.SetRow(heightLabel, 1);
             Grid.SetColumn(heightLabel, 0);
             grid.Widgets.Add(heightLabel);

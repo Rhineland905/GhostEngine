@@ -1,4 +1,5 @@
 ﻿using GhostEngine.DesktopGL.Editor.Model.Objects;
+using GhostEngine.DesktopGL.Editor.Settings;
 using Myra.Graphics2D.UI;
 
 namespace GhostEngine.DesktopGL.Editor.UI
@@ -13,7 +14,7 @@ namespace GhostEngine.DesktopGL.Editor.UI
 
             for (int i = 0; i < Categories.Length; i++)
             {
-                ObjectsTab.Widgets.Add(PaletteList.CreateHeader(Categories[i], first: i == 0));
+                ObjectsTab.Widgets.Add(PaletteList.CreateHeader(Localization.Get("Objects." + Categories[i]), first: i == 0));
 
                 foreach (var definition in ObjectCatalog.All)
                 {

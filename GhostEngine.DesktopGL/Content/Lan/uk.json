@@ -1,0 +1,53 @@
+{
+    "ButtonsEvents.Non" : "Невідома команда",
+    "ButtonsEvents.CouldOpenTheLevel" : "Не вдалося відкрити рівень ",
+    "ButtonsEvents.CouldSaveTheLevelTo" : "Не вдалося зберегти рівень у ",
+    "ButtonsEvents.CouldCreateTheLevelFile" : "Не вдалося створити файл рівня ",
+
+    "Toolbar.Search": "Пошук",
+    "Toolbar.Tiles": "Тайли",
+    "Toolbar.Objects": "Об'єкти",
+
+    "MessageBox.Error": "Помилка",
+    "MessageBox.CreateNewLevel": "Створити новий рівень",
+    "MessageBox.Width": "Ширина",
+    "MessageBox.Height": "Висота",
+
+    "MenuBar.File": "Файл",
+    "MenuBar.NewProject": "Новий проєкт",
+    "MenuBar.OpenProject": "Відкрити проєкт",
+    "MenuBar.NewLevel": "Новий рівень",
+    "MenuBar.Open": "Відкрити",
+    "MenuBar.Save": "Зберегти",
+    "MenuBar.Settings": "Налаштування",
+    "MenuBar.Exit": "Вихід",
+
+    "Objects.Player": "Гравець",
+    "Objects.Enemies": "Вороги",
+    "Objects.Physics": "Фізика",
+    "Objects.Items": "Предмети",
+    "Objects.Triggers": "Тригери",
+    "Objects.PlayerSpawn": "Точка появи гравця",
+    "Objects.Slime": "Слиз",
+    "Objects.Bat": "Кажан",
+    "Objects.Coin": "Монета",
+
+    "Tiles.Terrain": "Ландшафт",
+    "Tiles.Platforms": "Платформи",
+    "Tiles.Hazards": "Небезпеки",
+    "Tiles.Decor": "Декор",
+    "Tiles.Floor": "Підлога",
+    "Tiles.Platform": "Платформа",
+    "Tiles.Spikes": "Шипи",
+
+    "SettingsCore.Settings": "Налаштування",
+    "SettingsCore.APPEARANCE": "ВИГЛЯД",
+    "SettingsCore.ColorTheme": "Колірна тема",
+    "SettingsCore.Light": "Світла",
+    "SettingsCore.Dark": "Темна",
+    "SettingsCore.AppliedSaved": "Застосовано до всього редактора та збережено.",
+    "SettingsCore.Cancel": "Скасувати",
+    "SettingsCore.Apply": "Застосувати",
+
+    "CreateNew.ThisFolderAlreadyExists": "Ця папка вже існує"
+}

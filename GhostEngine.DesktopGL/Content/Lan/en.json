@@ -1,0 +1,55 @@
+{
+    "ButtonsEvents.Non" : "Unknown command",
+    "ButtonsEvents.CouldOpenTheLevel" : "Could not open the level ",
+    "ButtonsEvents.CouldSaveTheLevelTo" : "Could not save the level to ",
+    "ButtonsEvents.CouldCreateTheLevelFile" : "Could not create the level file ",
+
+    "Toolbar.Search": "Search",
+    "Toolbar.Tiles": "Tiles",
+    "Toolbar.Objects": "Objects",
+
+    "MessageBox.Error": "Error",
+    "MessageBox.CreateNewLevel": "Create New Level",
+    "MessageBox.Width": "Width",
+    "MessageBox.Height": "Height",
+
+    "MenuBar.File": "File",
+    "MenuBar.NewProject": "New Project",
+    "MenuBar.OpenProject": "Open Project",
+    "MenuBar.NewLevel": "New Level",
+    "MenuBar.Open": "Open",
+    "MenuBar.Save": "Save",
+    "MenuBar.Settings": "Settings",
+    "MenuBar.Exit": "Exit",
+
+    "Objects.Player": "Player",
+    "Objects.Enemies": "Enemies",
+    "Objects.Physics": "Physics",
+    "Objects.Items": "Items",
+    "Objects.Triggers": "Triggers",
+    "Objects.PlayerSpawn": "Player Spawn",
+    "Objects.Slime": "Slime",
+    "Objects.Bat": "Bat",
+    "Objects.Coin": "Coin",
+
+    "Tiles.Terrain": "Terrain",
+    "Tiles.Platforms": "Platforms",
+    "Tiles.Hazards": "Hazards",
+    "Tiles.Decor": "Decor",
+    "Tiles.Floor": "Floor",
+    "Tiles.Platform": "Platform",
+    "Tiles.Spikes": "Spikes",
+
+    "SettingsCore.Settings": "Settings",
+    "SettingsCore.APPEARANCE": "APPEARANCE",
+    "SettingsCore.ColorTheme": "Color theme",
+    "SettingsCore.Light": "Light",
+    "SettingsCore.Dark": "Dark",
+    "SettingsCore.AppliedSaved": "Applied to the whole editor and saved.",
+    "SettingsCore.Cancel": "Cancel",
+    "SettingsCore.Apply": "Apply",
+
+    "CreateNew.ThisFolderAlreadyExists": "This folder already exists"
+
+}
+    

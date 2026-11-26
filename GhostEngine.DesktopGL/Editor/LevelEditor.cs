@@ -111,10 +111,13 @@ namespace GhostEngine.DesktopGL.Editor
 
             //LoadData
             var currentSettings = SaveLoadConfig.LoadData();
+            Localization.load(currentSettings.Lang);
             ButtonsEventsSettings.DarkMode = currentSettings.IsDarkMode;
             ButtonsEventsSettings.UpdateGlobalStylesheet(currentSettings.IsDarkMode);
             ButtonsEvents.PathLastProject = currentSettings.PathLastProject;
             ButtonsEvents.PathLastSaveLevel = currentSettings.PathLastLevel;
+            
+
             // Last level may be missing or unreadable: start with an empty one instead of crashing
             var lastLevel = string.IsNullOrEmpty(ButtonsEvents.PathLastSaveLevel) ? null : SaveLevel.Load(ButtonsEvents.PathLastSaveLevel);
             if (lastLevel == null)

@@ -34,7 +34,7 @@ namespace GhostEngine.DesktopGL.Editor
                     break;
 
                 default:
-                    MessageBox.ShowError("Unknown command");
+                    MessageBox.ShowError(Localization.Get("ButtonsEvents.Non"));
                     break;
             }
         }
@@ -94,7 +94,7 @@ namespace GhostEngine.DesktopGL.Editor
                             var loaded = SaveLevel.Load(dialogOpen.FilePath);
                             if (loaded == null)
                             {
-                                MessageBox.ShowError("Could not open the level " + dialogOpen.FilePath);
+                                MessageBox.ShowError(Localization.Get("ButtonsEvents.CouldOpenTheLevel") + dialogOpen.FilePath);
                                 return;
                             }
                             EditorState.CurrentLevel = loaded;
@@ -122,7 +122,7 @@ namespace GhostEngine.DesktopGL.Editor
                                 }
                                 else
                                 {
-                                    MessageBox.ShowError("Could not save the level to " + dialogSave.FilePath);
+                                    MessageBox.ShowError(Localization.Get("ButtonsEvents.CouldSaveTheLevelTo") + dialogSave.FilePath);
                                 }
                             };
                             dialogSave.ShowModal(DesktopInstance);
@@ -133,7 +133,7 @@ namespace GhostEngine.DesktopGL.Editor
                         }
                         else
                         {
-                            MessageBox.ShowError("Could not save the level to " + PathLastSaveLevel);
+                            MessageBox.ShowError(Localization.Get("ButtonsEvents.CouldSaveTheLevelTo") + PathLastSaveLevel);
                         }
                     }
                     catch (Exception ex) { MessageBox.ShowError(ex.Message); }
@@ -183,7 +183,7 @@ namespace GhostEngine.DesktopGL.Editor
                                 var level = new Level(width, height);
                                 if (!SaveLevel.Save(level, path))
                                 {
-                                    MessageBox.ShowError("Could not create the level file " + path);
+                                    MessageBox.ShowError(Localization.Get("ButtonsEvents.CouldCreateTheLevelFile") + path);
                                     return;
                                 }
                                 EditorState.CurrentLevel = level;

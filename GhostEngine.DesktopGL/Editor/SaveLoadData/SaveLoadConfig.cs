@@ -14,9 +14,10 @@ namespace GhostEngine.DesktopGL.Editor.Config
 
         public class EngineData
         {
-            public bool IsDarkMode { get; set; }
+            public bool IsDarkMode { get; set; } = true;
             public string PathLastProject { get; set; }
             public string PathLastLevel { get; set; }
+            public string Lang { get; set; } = "uk";
 
         }
 
